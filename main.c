@@ -2,18 +2,11 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "Node.h"
+#include "node.h"
 #include "utils.h"
+#include "astar.h"
 
 #define findLength(arr) (sizeof(arr) / sizeof(arr[0]))
-
-bool contains(int* arr, const int length, const int check)
-{
-	for (int i = 0; i < length; ++i)
-		if (arr[i] == check)
-			return false;
-	return true;
-}
 
 bool enterState(int* start, const int size)
 {
@@ -50,15 +43,15 @@ int main(int argc, char const *argv[])
 	while (!valid)
 		valid = enterState(start, puzzleSize);
 
-	struct Node startNode = {.parent = NULL};
-	copyIntArray(start, startNode.state, puzzleSize);
+	struct Node startNode = {.parent = NULL,
+							 .state = copyIntArray(start, puzzleSize),
+							 .fScore = calculateFScore(startNode.state, puzzleSize),
+							 .gScore = 0,
+							 .hScore = startNode.fScore + startNode.gScore};
 
 	free(start);
 
-	startNode.fScore = calculateFScore(startNode.state, puzzleSize);
-	startNode.gScore = 0;
-	startNode.hScore = startNode.fScore + startNode.gScore;
-
+	solve();
 
 	return 0;
 }

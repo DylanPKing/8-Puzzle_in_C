@@ -1,4 +1,4 @@
-#include "Node.h"
+#include "node.h"
 
 int calculateFScore(const int *state, const int size)
 {
