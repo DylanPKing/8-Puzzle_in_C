@@ -46,21 +46,14 @@ int main(int argc, char const *argv[])
 
 	Node *startNode = malloc(sizeof(Node));
 	startNode->parent = NULL;
-	startNode->state = copyIntArray(start, puzzleSize);
+	copyIntArray(start, startNode->state, puzzleSize);
 	startNode->hScore = calculateHScore(startNode->state, puzzleSize);
 	startNode->gScore = 0;
 	startNode->fScore = startNode->hScore + startNode->gScore;
 
 	free(start);
 
-	IntVector *open, *closed;
-	if (intVecInit(open) == -1 || intVecInit(closed) == -1)
-	{
-		printf("Error: Could not initialise state lists. Exiting.");
-		return 1;
-	}
-
-	solve(startNode, end, open, closed);
+	solve(startNode, end, puzzleSize);
 
 	return 0;
 }

@@ -1,18 +1,23 @@
 #include <stdlib.h>
+#include "node.h"
 
 #if !defined(VECTOR_H)
 #define VECTOR_H
 
-typedef struct IntVectorStruct
+typedef struct NodeVectorStruct
 {
-	int* vector;
+	Node* vector;
 	size_t capacity;
 	size_t currentSize;
-} IntVector;
+} NodeVector;
 
-int intVecInitSize(IntVector*, size_t);
-int intVecInit(IntVector*);
-int intVecResize(IntVector*, size_t);
-int intVecPush_back(IntVector*, int);
+int nodeVecInitSize(NodeVector*, size_t);
+int nodeVecInit(NodeVector*);
+int nodeVecResize(NodeVector*, size_t);
+int nodeVecPush_back(NodeVector*, Node*);
+int nodeVecRemove(NodeVector*, Node*, int);
+bool isVecEmpty(NodeVector*);
+void copyNodeArray(Node*, Node*, const int);
+void copyNodeVec(NodeVector*, NodeVector*);
 
 #endif // VECTOR_H
