@@ -5,6 +5,7 @@
 #include "node.h"
 #include "utils.h"
 #include "astar.h"
+#include "vector.h"
 
 #define findLength(arr) (sizeof(arr) / sizeof(arr[0]))
 
@@ -43,15 +44,23 @@ int main(int argc, char const *argv[])
 	while (!valid)
 		valid = enterState(start, puzzleSize);
 
-	struct Node startNode = {.parent = NULL,
-							 .state = copyIntArray(start, puzzleSize),
-							 .fScore = calculateFScore(startNode.state, puzzleSize),
-							 .gScore = 0,
-							 .hScore = startNode.fScore + startNode.gScore};
+	Node *startNode = malloc(sizeof(Node));
+	startNode->parent = NULL;
+	startNode->state = copyIntArray(start, puzzleSize);
+	startNode->hScore = calculateHScore(startNode->state, puzzleSize);
+	startNode->gScore = 0;
+	startNode->fScore = startNode->hScore + startNode->gScore;
 
 	free(start);
 
-	solve();
+	IntVector *open, *closed;
+	if (intVecInit(open) == -1 || intVecInit(closed) == -1)
+	{
+		printf("Error: Could not initialise state lists. Exiting.");
+		return 1;
+	}
+
+	solve(startNode, end, open, closed);
 
 	return 0;
 }

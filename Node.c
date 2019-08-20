@@ -1,6 +1,7 @@
 #include "node.h"
 
-int calculateFScore(const int *state, const int size)
+int calculateHScore(const int *state, const int size)
 {
 	return 0;
 }
+

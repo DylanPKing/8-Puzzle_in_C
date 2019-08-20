@@ -1,15 +1,16 @@
 #if !defined(NODE_H)
 #define NODE_H
 
-struct Node
+typedef struct NodeStruct
 {
-	const struct Node *parent;
-	const int* state;
-	const int fScore;
-	const int gScore;
-	const int hScore;
-};
+	struct NodeStruct *parent;
+	int* state;
+	int hScore;
+	int gScore;
+	int fScore;
 
-int calculateFScore(const int*, const int);
+} Node;
+
+int calculateHScore(const int*, const int);
 
 #endif // NODE_H
