@@ -5,7 +5,6 @@
 #include "node.h"
 #include "utils.h"
 #include "astar.h"
-#include "vector.h"
 
 #define findLength(arr) (sizeof(arr) / sizeof(arr[0]))
 
