@@ -1,8 +1,7 @@
 #include <stdio.h>
 
 #include "astar.h"
-#include "node.h"
-#include "vector.h"
+#include "utils.h"
 
 Node* solve(Node* currentNode, int* endState, int size)
 {
@@ -28,8 +27,24 @@ Node* solve(Node* currentNode, int* endState, int size)
 		{
 			nodeVecRemove(open, currentNode, size);
 			nodeVecPush_back(closed, currentNode);
-
-			
+			generateNodeChildren(currentNode, open);
+			for (size_t i = open->currentSize - currentNode->children->currentSize;
+				 i < open->currentSize; ++i)
+			{
+				Node* nOne = &open->vector[i];
+				for (size_t j = 0; j < closed->currentSize; ++j)
+				{
+					Node* nTwo = &closed->vector[j];
+					if (arrayEquals(nOne->state, nTwo->state, size))
+					{
+						if (nOne->fScore < nTwo->fScore)
+							nodeVecRemove(closed, nTwo, size);
+						else
+							nodeVecRemove(open, nOne, size);
+					}
+				}
+			}
+			currentNode = lowestFScore(&open->vector[0], open);
 		}
 	}
 }

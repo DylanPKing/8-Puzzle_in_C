@@ -44,14 +44,8 @@ int main(int argc, char const *argv[])
 		valid = enterState(start, puzzleSize);
 
 	Node *startNode = malloc(sizeof(Node));
-	startNode->parent = NULL;
-	copyIntArray(start, startNode->state, puzzleSize);
-	startNode->hScore = calculateHScore(startNode->state, puzzleSize);
-	startNode->gScore = 0;
-	startNode->fScore = startNode->hScore + startNode->gScore;
-
+	initNode(startNode, NULL, start, calculateHScore(start, puzzleSize), 0);
 	free(start);
-
 	solve(startNode, end, puzzleSize);
 
 	return 0;

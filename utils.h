@@ -1,4 +1,4 @@
-#if !defined(UTILS_H)
+#ifndef UTILS_H
 #define UTILS_H
 
 void copyIntArray(int*, int*, const int);

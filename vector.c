@@ -3,7 +3,6 @@
 #include <stdbool.h>
 
 #include "vector.h"
-#include "utils.h"
 
 int nodeVecInitSize(NodeVector *v, size_t initCapacity)
 {

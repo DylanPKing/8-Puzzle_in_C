@@ -1,8 +1,11 @@
-#include <stdlib.h>
-#include "node.h"
-
-#if !defined(VECTOR_H)
+#ifndef VECTOR_H
 #define VECTOR_H
+
+#include <stdlib.h>
+
+typedef struct NodeStruct Node;
+
+#include "node.h"
 
 typedef struct NodeVectorStruct
 {
