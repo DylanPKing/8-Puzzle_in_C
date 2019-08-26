@@ -27,7 +27,7 @@ Node* solve(Node* currentNode, int* endState, int size)
 		{
 			nodeVecRemove(open, currentNode, size);
 			nodeVecPush_back(closed, currentNode);
-			generateNodeChildren(currentNode, open);
+			generateNodeChildren(currentNode, open, endState);
 			for (size_t i = open->currentSize - currentNode->children->currentSize;
 				 i < open->currentSize; ++i)
 			{

@@ -8,7 +8,7 @@
 			"name": "(gdb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "C:\\Programming\\8-Puzzle_in_C\\solver.exe",
+			"program": "C:\\Programming\\8-Puzzle_in_C\\8Puzzle.exe",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",

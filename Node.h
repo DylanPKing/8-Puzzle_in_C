@@ -18,9 +18,12 @@ typedef struct NodeStruct
 } Node;
 
 void initNode(Node*, Node*, int*, int, int);
-int calculateHScore(const int*, const int);
+int findGoalDistance(const int, const int);
+int findGoalndex(const int, const int*, const int);
+int calculateHScore(const int*, const int, const int*);
 void copyNode(Node*, Node*, int);
 bool equalsNode(Node*, Node*, int);
-void generateNodeChildren(Node*, NodeVector*);
+void generateNodeChildren(Node*, NodeVector*, const int*);
+void printNode(const Node*, const int size);
 
 #endif // NODE_H

@@ -18,12 +18,12 @@ bool enterState(int* start, const int size)
 	{
 		if (scanf("%d", &start[i]) != 1 && (start[i] >= 0 || start[i] <= 8))
 		{
-			printf("Invalid input. Must be integers between 0 and 8.");
+			printf("Invalid input. Must be integers between 0 and 8.\n");
 			return false;
 		}
-		if (!(contains(start, i - 1, start[i])))
+		if (contains(start, i - 1, start[i]))
 		{
-			printf("Invalid input. No duplicate numbers.");
+			printf("Invalid input. No duplicate numbers.\n");
 			return false;
 		}
 	}
@@ -44,9 +44,20 @@ int main(int argc, char const *argv[])
 		valid = enterState(start, puzzleSize);
 
 	Node *startNode = malloc(sizeof(Node));
-	initNode(startNode, NULL, start, calculateHScore(start, puzzleSize), 0);
+	initNode(startNode, NULL, start, calculateHScore(start, puzzleSize, end), 0);
 	free(start);
-	solve(startNode, end, puzzleSize);
-
+	Node* finalNode = solve(startNode, end, puzzleSize);
+	NodeVector path;
+	nodeVecInit(&path);
+	Node* next = finalNode;
+	do
+	{
+		nodeVecPush_back(&path, next);
+		next = next->parent;
+	} while (next->parent != NULL);
+	printNode(finalNode, puzzleSize);
+	for (size_t i = path.currentSize; i >= 0; --i)
+		printNode(&path.vector[i], puzzleSize);
+	
 	return 0;
 }
