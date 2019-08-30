@@ -20,10 +20,10 @@ typedef struct NodeStruct
 void initNode(Node*, Node*, int*, int, int);
 int findGoalDistance(const int, const int);
 int findGoalndex(const int, const int*, const int);
-int calculateHScore(const int*, const int, const int*);
+int calculateHScore(const int*, const int, int*);
 void copyNode(Node*, Node*, int);
 bool equalsNode(Node*, Node*, int);
-void generateNodeChildren(Node*, NodeVector*, const int*);
+void generateNodeChildren(Node*, NodeVector*, int*);
 void printNode(const Node*, const int size);
 
 #endif // NODE_H

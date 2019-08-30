@@ -30,6 +30,7 @@ Node* solve(Node* currentNode, int* endState, int size)
 			nodeVecRemove(open, currentNode, size);
 			nodeVecPush_back(closed, currentNode);
 			currentNode->children = malloc(sizeof(NodeVector));
+			nodeVecInit(currentNode->children);
 			generateNodeChildren(currentNode, open, endState);
 			for (size_t i = open->currentSize - currentNode->children->currentSize;
 				 i < open->currentSize; ++i)

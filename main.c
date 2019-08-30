@@ -10,9 +10,6 @@
 
 bool enterState(int* start, const int size)
 {
-	for (size_t i = 0; i < size; ++i)
-		start[i] = 0;
-
 	printf("Enter a sequence of numbers from 0 to 8, separated by spaces:\n");
 	for (size_t i = 0; i < size; ++i)
 	{

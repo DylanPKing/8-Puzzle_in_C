@@ -46,7 +46,7 @@ int findGoalIndex(const int n, const int* end, const int size)
 	return -1;
 }
 
-int calculateHScore(const int *state, const int size, const int* end)
+int calculateHScore(const int *state, const int size, int* end)
 {
 	int hScore = 0;
 	for (size_t i = 0; i < size; ++i)
@@ -76,12 +76,13 @@ bool equalsNode(Node* nodeOne, Node* nodeTwo, int stateSize)
 			nodeOne->fScore == nodeTwo->fScore);
 }
 
-void generateNodeChildren(Node* n, NodeVector* open, const int* end)
+void generateNodeChildren(Node* n, NodeVector* open, int* end)
 {
 	nodeVecInit(n->children);
 	const int rows = 3;
 	const int length = rows * rows;
 	int* tempChildState;
+	initArray(tempChildState, length);
 	copyIntArray(n->state, tempChildState, length);
 	int zeroIndex = 0;
 	for (size_t i = 0; i < length; ++i)
@@ -97,41 +98,48 @@ void generateNodeChildren(Node* n, NodeVector* open, const int* end)
 		tempChildState[zeroIndex] = tempChildState[zeroIndex - rows];
 		tempChildState[zeroIndex - rows] = 0;
 		Node* south = malloc(sizeof(Node));
+		int hScore = calculateHScore(tempChildState, length, end);
 		initNode(south, n, tempChildState,
-				 calculateHScore(tempChildState, length, end), n->gScore + 1);
+				 hScore, n->gScore + 1);
 		nodeVecPush_back(n->children, south);
 		nodeVecPush_back(open, south);
 	}
+	initArray(tempChildState, length);
 	copyIntArray(n->state, tempChildState, length);
 	if (zeroIndex <= length - 1 - rows)	// If middle row
 	{
 		tempChildState[zeroIndex] = tempChildState[zeroIndex + rows];
 		tempChildState[zeroIndex + rows] = 0;
 		Node* north = malloc(sizeof(Node));
+		int hScore = calculateHScore(tempChildState, length, end);
 		initNode(north, n, tempChildState,
-				 calculateHScore(tempChildState, length, end), n->gScore + 1);
+				 hScore, n->gScore + 1);
 		nodeVecPush_back(n->children, north);
 		nodeVecPush_back(open, north);
 	}
+	initArray(tempChildState, length);
 	copyIntArray(n->state, tempChildState, length);
 	if (zeroIndex % rows != 0) // If not left column
 	{
 		tempChildState[zeroIndex] = tempChildState[zeroIndex - 1];
 		tempChildState[zeroIndex- 1] =  0;
 		Node* east = malloc(sizeof(Node));
+		int hScore = calculateHScore(tempChildState, length, end);
 		initNode(east, n, tempChildState,
-				 calculateHScore(tempChildState, length, end), n->gScore + 1);
+				 hScore, n->gScore + 1);
 		nodeVecPush_back(n->children, east);
 		nodeVecPush_back(open, east);
 	}
+	initArray(tempChildState, length);
 	copyIntArray(n->state, tempChildState, length);
 	if (zeroIndex % rows != rows - 1) // If not right column
 	{
 		tempChildState[zeroIndex] = tempChildState[zeroIndex + 1];
 		tempChildState[zeroIndex + 1] = 0;
 		Node* west = malloc(sizeof(Node));
+		int hScore = calculateHScore(tempChildState, length, end);
 		initNode(west, n, tempChildState,
-				 calculateHScore(tempChildState, length, end), n->gScore + 1);
+				 hScore, n->gScore + 1);
 		nodeVecPush_back(n->children, west);
 		nodeVecPush_back(open, west);
 	}

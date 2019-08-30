@@ -2,6 +2,16 @@
 #include <stdbool.h>
 #include "utils.h"
 
+int initArray(int *arr, const int length)
+{
+	arr = malloc(length * sizeof(int));
+	if (!arr)
+		return -1;
+	for (size_t i = 0; i < length; ++i)
+		arr[i] = 0;
+	return 0;
+}
+
 void copyIntArray(int *old, int *new, const int size)
 {
 	for (int i = 0; i < size; ++i)
