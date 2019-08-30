@@ -45,7 +45,6 @@ int main(int argc, char const *argv[])
 
 	Node *startNode = malloc(sizeof(Node));
 	initNode(startNode, NULL, start, calculateHScore(start, puzzleSize, end), 0);
-	free(start);
 	Node* finalNode = solve(startNode, end, puzzleSize);
 	NodeVector path;
 	nodeVecInit(&path);

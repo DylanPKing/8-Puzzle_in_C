@@ -6,15 +6,17 @@
 Node* solve(Node* currentNode, int* endState, int size)
 {
 	NodeVector *open, *closed;
+	open = malloc(sizeof(NodeVector));
+	closed = malloc(sizeof(NodeVector));
 	if (nodeVecInit(open) == -1 || nodeVecInit(closed) == -1)
 	{
 		printf("Error: Could not initialise state lists. Exiting.");
 		exit(1);
 	}
-
+	nodeVecPush_back(open, currentNode);
 	Node finalNode;
 
-	while (isVecEmpty(open))
+	while (!isVecEmpty(open))
 	{
 		if (stateEquals(currentNode->state, endState, size))
 		{
@@ -27,6 +29,7 @@ Node* solve(Node* currentNode, int* endState, int size)
 		{
 			nodeVecRemove(open, currentNode, size);
 			nodeVecPush_back(closed, currentNode);
+			currentNode->children = malloc(sizeof(NodeVector));
 			generateNodeChildren(currentNode, open, endState);
 			for (size_t i = open->currentSize - currentNode->children->currentSize;
 				 i < open->currentSize; ++i)
